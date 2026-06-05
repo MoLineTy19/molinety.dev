@@ -4,6 +4,7 @@ import InputOption from "@/app/components/offersSection/InputOption";
 import {NeonGradientCard} from "@/components/ui/neon-gradient-card";
 import {PulsatingButton} from "@/components/ui/pulsating-button";
 import AnimatedSection from "@/app/components/animatedSection";
+import Link from "next/link";
 
 export default function OffersSection() {
     const containerVariants = {
@@ -85,7 +86,9 @@ export default function OffersSection() {
                             <InputOption text="Базовая SEO-настройка"/>
                             <InputOption text="Гарантия 14 дней правок"/>
                         </div>
-                        <button className="cursor-pointer border border-gray-400/50 p-4 w-full mt-6">ОБСУДИТЬ</button>
+                        <Link href="https://kwork.ru/user/molinety">
+                            <button className="cursor-pointer border border-gray-400/50 p-4 w-full mt-6">ОБСУДИТЬ</button>
+                        </Link>
                         <p className="text-xs text-gray-400/70 mt-4 text-center">подходит для лендингов и визиток</p>
                     </motion.article>
                     <NeonGradientCard neonColors={{firstColor: "#ff6900", secondColor: "#ff4400"}} borderRadius={0}>
@@ -141,7 +144,9 @@ export default function OffersSection() {
                             <InputOption text="Онлайн-оплата (карты / СБП)"/>
                             <InputOption text="Админ-панель + аналитика"/>
                         </div>
-                        <PulsatingButton className="cursor-pointer border bg-orange-500 p-4 w-full mt-6 text-black">ОБСУДИТЬ</PulsatingButton>
+                        <Link href="https://kwork.ru/user/molinety">
+                            <PulsatingButton className="cursor-pointer border bg-orange-500 p-4 w-full mt-6 text-black rounded-none" >ОБСУДИТЬ</PulsatingButton>
+                        </Link>
                         <p className="text-xs text-gray-400/70 mt-4 text-center">идеально для услуг, сервисов, магазинов до 500 товаров</p>
                     </NeonGradientCard>
                     {/*<article className="border border-orange-500 p-8 h-full flex flex-col relative">*/}
@@ -202,7 +207,9 @@ export default function OffersSection() {
                             <InputOption text="Архитектура под высокую нагрузку"/>
                             <InputOption text="DevOps: CI/CD, мониторинг, бекапы"/>
                         </div>
-                        <button className="cursor-pointer border border-gray-400/50 p-4 w-full mt-6">ОБСУДИТЬ</button>
+                        <Link href="https://kwork.ru/user/molinety">
+                            <button className="cursor-pointer border border-gray-400/50 p-4 w-full mt-6">ОБСУДИТЬ</button>
+                        </Link>
                         <p className="text-xs text-gray-400/70 mt-4 text-center">для маркетплейсов, EdTech,
                             B2B-платформ</p>
                     </motion.article>
