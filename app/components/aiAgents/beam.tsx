@@ -35,8 +35,8 @@ export function Beam() {
     const div7Ref = useRef<HTMLDivElement>(null)
 
     return (
-        <div className="mt-20 relative flex h-[300px] w-full overflow-hidden p-10" ref={containerRef}>
-            <div className="flex size-full max-h-[200px] max-w-lg flex-col items-stretch justify-between gap-10">
+        <div className="relative flex h-[260px] w-full overflow-hidden p-4 sm:h-[300px] sm:p-10" ref={containerRef}>
+            <div className="flex size-full max-h-[200px] max-w-full flex-col items-stretch justify-between gap-6 sm:max-w-lg sm:gap-10">
                 <div className="flex flex-row items-center justify-between">
                     <Circle ref={div1Ref}>
                         <Icons.googleDrive />

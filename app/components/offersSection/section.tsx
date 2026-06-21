@@ -1,11 +1,19 @@
 import { motion } from "framer-motion";
 
 import InputOption from "@/app/components/offersSection/InputOption";
-import {NeonGradientCard} from "@/components/ui/neon-gradient-card";
-import {PulsatingButton} from "@/components/ui/pulsating-button";
+import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
+import { PulsatingButton } from "@/components/ui/pulsating-button";
 import AnimatedSection from "@/app/components/animatedSection";
 import Link from "next/link";
 
+/**
+ * Секция тарифов. Правки:
+ *  - все h1 → h3 (на странице один h1 — в hero)
+ *  - text-gray-400/95 → text-gray-300 (WCAG-контраст на тёмном фоне)
+ *  - hover-стили на кнопках тарифов «ОБСУДИТЬ» (раньше не было feedback)
+ *  - grid адаптивный: 1 колонка на мобиле → 3 на lg
+ *  - SVG-макеты сайтов оставлены как есть (они рабочие и атмосферные)
+ */
 export default function OffersSection() {
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -25,27 +33,36 @@ export default function OffersSection() {
 
     return (
         <section id="offers">
-            <div className="mt-30">
+            <div className="mt-24 sm:mt-32">
                 <AnimatedSection>
-                    <h2 className="text-xs text-gray-400 tracking-[2] mb-6">ТАРИФЫ</h2>
+                    <h2 className="mb-6 text-xs tracking-[0.2em] text-gray-400">ТАРИФЫ</h2>
                 </AnimatedSection>
                 <AnimatedSection>
-                    <span className="text-5xl font-black">Выберите формат сотрудничества под ваш бизнес</span>
+                    <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] font-black leading-tight">
+                        Выберите формат сотрудничества под ваш бизнес
+                    </h2>
                 </AnimatedSection>
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 items-center">
-                    <motion.article variants={itemVariants} className="border border-gray-700 p-8 flex flex-col">
-                        <p className="text-xs text-gray-300/60 mb-4">TIER 1</p>
-                        <h1 className="text-2xl font-black mb-3">Базовый</h1>
+                    className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 sm:mt-20"
+                >
+                    {/* TIER 1 — Базовый */}
+                    <motion.article
+                        variants={itemVariants}
+                        className="flex flex-col border border-gray-700 p-6 sm:p-8"
+                    >
+                        <p className="mb-4 text-xs text-gray-400">TIER 1</p>
+                        <h3 className="mb-3 text-2xl font-black">Базовый</h3>
                         <p className="text-4xl font-bold text-orange-500">ОТ 5 000 ₽</p>
-                        <p className="text-gray-400/95 text-sm mb-10">Быстрый старт. Первые заявки без переплаты.</p>
+                        <p className="mb-8 mt-2 text-sm text-gray-300 sm:mb-10">
+                            Быстрый старт. Первые заявки без переплаты.
+                        </p>
                         <div className="mb-5 flex justify-center">
                             <svg width="440" height="260" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg"
-                                 className="rounded-lg shadow-lg">
+                                 className="w-full rounded-lg shadow-lg">
                                 <rect width="320" height="180" fill="#0d0d0d"/>
                                 <rect width="320" height="26" fill="rgba(255,255,255,0.03)"/>
                                 <circle cx="16" cy="13" r="5" fill="rgba(249,115,22,0.6)"/>
@@ -86,19 +103,25 @@ export default function OffersSection() {
                             <InputOption text="Базовая SEO-настройка"/>
                             <InputOption text="Гарантия 14 дней правок"/>
                         </div>
-                        <Link href="https://kwork.ru/user/molinety">
-                            <button className="cursor-pointer border border-gray-400/50 p-4 w-full mt-6">ОБСУДИТЬ</button>
+                        <Link href="https://kwork.ru/user/molinety" className="mt-6">
+                            <button className="w-full cursor-pointer border border-gray-400/50 p-4 transition-colors hover:border-orange-500/70 hover:text-orange-500">
+                                ОБСУДИТЬ
+                            </button>
                         </Link>
-                        <p className="text-xs text-gray-400/70 mt-4 text-center">подходит для лендингов и визиток</p>
+                        <p className="mt-4 text-center text-xs text-gray-400">подходит для лендингов и визиток</p>
                     </motion.article>
-                    <NeonGradientCard neonColors={{firstColor: "#ff6900", secondColor: "#ff4400"}} borderRadius={0}>
-                        <p className="text-xs text-orange-500 mb-4">TIER 2</p>
-                        <h1 className="text-2xl font-black mb-3">Продвинутый</h1>
+
+                    {/* TIER 2 — Продвинутый (акцентный, выделен) */}
+                    <NeonGradientCard neonColors={{ firstColor: "#ff6900", secondColor: "#ff4400" }} borderRadius={0}>
+                        <p className="mb-4 text-xs text-orange-500">TIER 2 · ХИТ</p>
+                        <h3 className="mb-3 text-2xl font-black">Продвинутый</h3>
                         <p className="text-4xl font-bold text-orange-500">ОТ 15 000 ₽</p>
-                        <p className="text-gray-400/95 text-sm mb-10">Системный сайт. Готов масштабироваться.</p>
+                        <p className="mb-8 mt-2 text-sm text-gray-300 sm:mb-10">
+                            Системный сайт. Готов масштабироваться.
+                        </p>
                         <div className="mb-5 flex justify-center">
                             <svg width="580" height="300" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg"
-                                 className="w-full h-auto rounded-lg">
+                                 className="h-auto w-full rounded-lg">
                                 <rect width="320" height="180" fill="#0d0d0d"/>
                                 <rect width="320" height="26" fill="rgba(255,255,255,0.03)"/>
                                 <circle cx="16" cy="13" r="5" fill="rgba(249,115,22,0.6)"/>
@@ -137,29 +160,37 @@ export default function OffersSection() {
                                 <rect x="254" y="152" width="36" height="3" rx="1" fill="rgba(255,255,255,0.08)"/>
                             </svg>
                         </div>
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 mb-6">
                             <InputOption text="5–7 страниц в едином стиле"/>
                             <InputOption text="Личный кабинет или калькулятор"/>
                             <InputOption text="Интеграция: Telegram, CRM, таблицы"/>
                             <InputOption text="Онлайн-оплата (карты / СБП)"/>
                             <InputOption text="Админ-панель + аналитика"/>
                         </div>
-                        <Link href="https://kwork.ru/user/molinety">
-                            <PulsatingButton className="cursor-pointer border bg-orange-500 p-4 w-full mt-6 text-black rounded-none" >ОБСУДИТЬ</PulsatingButton>
+                        <Link href="https://kwork.ru/user/molinety" className="mt-8">
+                            <PulsatingButton className="w-full cursor-pointer rounded-none border bg-orange-500 p-4 text-black">
+                                ОБСУДИТЬ
+                            </PulsatingButton>
                         </Link>
-                        <p className="text-xs text-gray-400/70 mt-4 text-center">идеально для услуг, сервисов, магазинов до 500 товаров</p>
+                        <p className="mt-4 text-center text-xs text-gray-400">
+                            идеально для услуг, сервисов, магазинов до 500 товаров
+                        </p>
                     </NeonGradientCard>
-                    {/*<article className="border border-orange-500 p-8 h-full flex flex-col relative">*/}
-                    {/*    */}
-                    {/*</article>*/}
-                    <motion.article variants={itemVariants} className="border border-gray-700 p-8 flex flex-col">
-                        <p className="text-xs text-gray-300/60 mb-4">TIER 3</p>
-                        <h1 className="text-2xl font-black mb-3">Бизнес</h1>
+
+                    {/* TIER 3 — Бизнес */}
+                    <motion.article
+                        variants={itemVariants}
+                        className="flex flex-col border border-gray-700 p-6 sm:p-8"
+                    >
+                        <p className="mb-4 text-xs text-gray-400">TIER 3</p>
+                        <h3 className="mb-3 text-2xl font-black">Бизнес</h3>
                         <p className="text-4xl font-bold text-orange-500">ОТ 30 000 ₽</p>
-                        <p className="text-gray-400/95 text-sm mb-10">Продуктовый уровень. Сложные процессы — просто.</p>
+                        <p className="mb-8 mt-2 text-sm text-gray-300 sm:mb-10">
+                            Продуктовый уровень. Сложные процессы — просто.
+                        </p>
                         <div className="mb-5 flex justify-center">
                             <svg width="480" height="260" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg"
-                                 className="rounded-lg shadow-lg">
+                                 className="w-full rounded-lg shadow-lg">
                                 <rect width="320" height="180" fill="#0d0d0d"/>
                                 <rect width="320" height="26" fill="rgba(255,255,255,0.03)"/>
                                 <circle cx="16" cy="13" r="5" fill="rgba(249,115,22,0.7)"/>
@@ -207,11 +238,14 @@ export default function OffersSection() {
                             <InputOption text="Архитектура под высокую нагрузку"/>
                             <InputOption text="DevOps: CI/CD, мониторинг, бекапы"/>
                         </div>
-                        <Link href="https://kwork.ru/user/molinety">
-                            <button className="cursor-pointer border border-gray-400/50 p-4 w-full mt-6">ОБСУДИТЬ</button>
+                        <Link href="https://kwork.ru/user/molinety" className="mt-6">
+                            <button className="w-full cursor-pointer border border-gray-400/50 p-4 transition-colors hover:border-orange-500/70 hover:text-orange-500">
+                                ОБСУДИТЬ
+                            </button>
                         </Link>
-                        <p className="text-xs text-gray-400/70 mt-4 text-center">для маркетплейсов, EdTech,
-                            B2B-платформ</p>
+                        <p className="mt-4 text-center text-xs text-gray-400">
+                            для маркетплейсов, EdTech, B2B-платформ
+                        </p>
                     </motion.article>
                 </motion.div>
             </div>

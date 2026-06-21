@@ -7,7 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  /* next/font прокидывает CSS-переменные геометрии; пробрасываем их в Tailwind */
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
   --font-heading: var(--font-sans);
@@ -89,10 +90,12 @@
   100% {
     transform: translateZ(0) rotate(360deg);}}}
 
-body {
-  font-family: Inter, serif;
-}
-
+/*
+ * НЕ задаём здесь font-family вручную — пусть Tailwind управляет через
+ * --font-sans / --font-mono из @theme (см. выше), куда прокинут Geist.
+ * Раньше тут стоял хардкод "Inter, serif" — он убивал Geist и на Windows
+ * сваливался в Times New Roman из-за fallback `serif`.
+ */
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
@@ -110,6 +113,16 @@ body {
   animation: bounce 1.5s infinite;
 }
 
+/* Курсор-индикатор скролла в hero. Раньше класс animate-scrollDot
+ * использовался, но keyframes не были определены — точка стояла неподвижно. */
+@keyframes scrollDot {
+  0%   { transform: translateY(0);   opacity: 1; }
+  70%  { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0);   opacity: 0; }
+}
+.animate-scrollDot {
+  animation: scrollDot 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
 
 section[id] {
   scroll-margin-top: 6vh;
@@ -125,6 +138,27 @@ section[id] {
   color: #f97316; /* orange-500 */
   font-size: 0.9rem;
   font-weight: bold;
+}
+
+/* Видимый focus-ring только при клавиатурной навигации (Tab), не мешает мыши.
+ * Раньше кастомные кнопки (ScrollButton, тарифы) не имели фокус-стиля —
+ * провал a11y и невидимая таб-навигация. */
+:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Уважаем системную настройку «уменьшить движение»: гасим длинные анимации.
+ * Framer Motion уважает это только в motion-компонентах через useReducedMotion,
+ * а наши CSS-анимации (blink, marquee, scrollDot) покрываем здесь. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 :root {

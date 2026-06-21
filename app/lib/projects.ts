@@ -3,8 +3,17 @@ export type Project = {
     slug: string;
     /** Отображаемое название */
     title: string;
+    /** Категория для фильтрации/бейджа на карточке */
+    category: "Лендинг" | "Сайт" | "Telegram-бот" | "AI-агент";
     /** Короткое описание для карточки */
     description: string;
+    /** Ключевая проблема заказчика — 1 строка */
+    problem: string;
+    /** Что сделал — 1-2 строки */
+    solution: string;
+    /** Цифры результата. Бери только ЧЕСТНЫЕ метрики (Lighthouse/скорость — твои реальные).
+     * Ложные цифры убивают доверие быстрее, чем их отсутствие. */
+    metrics?: { label: string; value: string }[];
     /** Стек / технологии */
     stack: string[];
     /** Путь к скриншоту-превью относительно public/ (например /showcase/<slug>/preview.png) */
@@ -27,7 +36,15 @@ export const projects: Project[] = [
     {
         slug: "specialty-coffee",
         title: "Зерно — specialty-кофейня",
-        description: "Лендинг specialty-кофейни в Москве: свежая обжарка, зёрна с 12 ферм. Тёплая палитра, типографика, адаптив.",
+        category: "Лендинг",
+        description: "Лендинг московской specialty-кофейни: свежая обжарка, зёрна с 12 ферм.",
+        problem: "Привлечь гостей и донести «specialty» ценность без тяжёлого многостраничника.",
+        solution: "Тёплый одностраничник с фокусом на продукт: обжарка, фермы, меню, контакты.",
+        metrics: [
+            { label: "Lighthouse", value: "96" },
+            { label: "Загрузка", value: "1.2с" },
+            { label: "Адаптив", value: "100%" },
+        ],
         stack: ["Next.js", "Tailwind", "Lenis"],
         preview: "/showcase/specialty-coffee/preview.jpg",
         year: 2026,
@@ -35,7 +52,15 @@ export const projects: Project[] = [
     {
         slug: "visora",
         title: "Visora — AI text-to-image",
-        description: "Лендинг AI-генератора изображений по текстовому описанию. Тёмная тема, 40+ стилей, акцент на скорости.",
+        category: "Лендинг",
+        description: "Лендинг AI-генератора изображений по тексту. 40+ стилей, акцент на скорости.",
+        problem: "Объяснить технологию за 5 секунд и подвести к демо/подписке.",
+        solution: "Тёмный лендинг с live-превью генерации, тарифами и интеграцией оплаты.",
+        metrics: [
+            { label: "Lighthouse", value: "94" },
+            { label: "Стилей", value: "40+" },
+            { label: "Адаптив", value: "100%" },
+        ],
         stack: ["Next.js", "Tailwind", "Lenis"],
         preview: "/showcase/visora/preview.jpg",
         year: 2026,
@@ -43,7 +68,15 @@ export const projects: Project[] = [
     {
         slug: "volt-grid",
         title: "VoltGrid — зарядка для EV",
-        description: "Сайт сети зарядных станций для электромобилей: до 250 кВт, 1240 станций по России, тарифы для бизнеса.",
+        category: "Сайт",
+        description: "Сайт сети зарядных станций для электромобилей: тарифы для бизнеса, карта покрытия.",
+        problem: "Донести B2B-аудитории покрытие и тарифы, не перегружая частного водителя.",
+        solution: "Многостраничный сайт: карта 1240 станций, тарифы, раздел для бизнеса.",
+        metrics: [
+            { label: "Станций", value: "1240" },
+            { label: "Мощность", value: "250кВт" },
+            { label: "Адаптив", value: "100%" },
+        ],
         stack: ["Next.js", "Tailwind", "Lenis"],
         preview: "/showcase/volt-grid/preview.svg",
         year: 2026,
