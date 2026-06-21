@@ -9,6 +9,7 @@ import AnimatedSection from "@/app/components/animatedSection";
 import {motion, useScroll, useTransform} from "motion/react";
 import AiAgentsSection from "@/app/components/aiAgents/section";
 import SkillsSection from "@/app/components/skillsSection/section";
+import ProjectsSection from "@/app/components/projectsSection/section";
 import Footer from "@/app/components/footer/section";
 
 
@@ -39,6 +40,7 @@ export default function Home() {
                 <TelegramOffersSection />
                 <AiAgentsSection />
                 <SkillsSection />
+                <ProjectsSection />
                 <Footer />
             </main>
         </motion.div>

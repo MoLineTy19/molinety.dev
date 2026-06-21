@@ -9,7 +9,7 @@ export default function TopNav() {
                 <span className="font-bold text-xl">.dev</span>
             </ScrollButton>
             <div className="flex gap-15 font-stretch-expanded font-medium text-gray-400 text-xs">
-                {/*<ScrollButton targetId={}>ПРОЕКТЫ</ScrollButton>*/}
+                <ScrollButton targetId={"projects"}>ПРОЕКТЫ</ScrollButton>
                 <ScrollButton targetId={"offers"}>ТАРИФЫ</ScrollButton>
                 <ScrollButton targetId={"telegramOffers"}>TELEGRAM</ScrollButton>
                 <ScrollButton targetId={"aiAgents"}>AI-АГЕНТЫ</ScrollButton>

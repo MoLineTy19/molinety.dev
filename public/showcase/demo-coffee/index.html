@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Coffee Shop — демо проект</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; color: #2a1a0e; background: #f5efe6; }
+        header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 24px 48px; background: #2a1a0e; color: #f5efe6;
+        }
+        header .brand { font-size: 22px; font-weight: 800; letter-spacing: 1px; }
+        header nav { display: flex; gap: 28px; font-size: 13px; letter-spacing: 1px; opacity: .85; }
+        .hero {
+            min-height: 70vh; display: grid; place-items: center; text-align: center;
+            padding: 80px 24px; background: linear-gradient(135deg, #6f4e37 0%, #2a1a0e 100%);
+            color: #f5efe6;
+        }
+        .hero h1 { font-size: clamp(40px, 7vw, 88px); font-weight: 900; letter-spacing: -1px; }
+        .hero p { margin-top: 18px; font-size: 18px; opacity: .85; max-width: 540px; }
+        .cta {
+            margin-top: 32px; display: inline-block; padding: 14px 36px;
+            background: #c8870e; color: #2a1a0e; font-weight: 800; letter-spacing: 1px;
+            text-decoration: none; border-radius: 999px;
+        }
+        .menu { max-width: 1000px; margin: 0 auto; padding: 80px 24px; display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        .card { background: #fff; border: 1px solid #e6dcc9; border-radius: 16px; padding: 28px; box-shadow: 0 8px 24px rgba(42,26,14,.06); }
+        .card .emoji { font-size: 40px; }
+        .card h3 { margin-top: 12px; font-size: 20px; }
+        .card p { margin-top: 8px; color: #6b5947; font-size: 14px; }
+        .card .price { margin-top: 14px; font-weight: 800; color: #c8870e; }
+        footer { text-align: center; padding: 40px; background: #2a1a0e; color: #f5efe6; font-size: 13px; opacity: .8; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="brand">☕ BREW LAB</div>
+    <nav>
+        <span>МЕНЮ</span><span>О НАС</span><span>КОНТАКТЫ</span>
+    </nav>
+</header>
+
+<section class="hero">
+    <div>
+        <h1>Свежая обжарка каждый день</h1>
+        <p>Спешелти-кофейня в центре города. Авторские напитки, десерты и уютная атмосфера.</p>
+        <a class="cta" href="#menu">СМОТРЕТЬ МЕНЮ</a>
+    </div>
+</section>
+
+<section class="menu" id="menu">
+    <div class="card"><div class="emoji">☕</div><h3>Капучино</h3><p>Бархатная молочная пена и эспрессо на зерне средней обжарки.</p><div class="price">280 ₽</div></div>
+    <div class="card"><div class="emoji">🥐</div><h3>Круассан</h3><p>Слоёное тесто на сливочном масле, выпечка с утра.</p><div class="price">190 ₽</div></div>
+    <div class="card"><div class="emoji">🧁</div><h3>Капкейк</h3><p>Ванильный бисквит с кремом-чизом.</p><div class="price">210 ₽</div></div>
+    <div class="card"><div class="emoji">🍫</div><h3>Хот-шоколад</h3><p>Густой бельгийский шоколад с маршмеллоу.</p><div class="price">320 ₽</div></div>
+</section>
+
+<footer>
+    © 2026 BREW LAB — демо-проект для портфолио molinety.dev
+</footer>
+</body>
+</html>
