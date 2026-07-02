@@ -59,9 +59,9 @@ export default function HeroSection() {
 
             {/* Trust-strip — мини-соцдоказательство прямо в hero */}
             <div className="mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-400 sm:text-sm">
-                <span>⭐ 5.0 на Kwork</span>
+                <span>⭐ 4.8 на Kwork</span>
                 <span className="hidden h-3 w-px bg-gray-700 sm:block"/>
-                <span>20+ проектов</span>
+                <span>25+ проектов</span>
                 <span className="hidden h-3 w-px bg-gray-700 sm:block"/>
                 <span>Ответ за 2 часа</span>
             </div>
