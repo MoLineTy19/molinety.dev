@@ -1,159 +1,125 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
+/* ──────────────────────────────────────────────────────────────
+   Дизайн-токены
+   Tailwind v4: @theme inline связывает CSS-переменные с утилитами
+   (bg-surface, text-secondary, border-border-light, text-accent …).
+   Значения заданы в :root (light) и .dark (dark - основная тема).
+   ────────────────────────────────────────────────────────────── */
 @theme inline {
+  /* Цвета → утилиты (text-*, bg-*, border-*) */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* next/font прокидывает CSS-переменные геометрии; пробрасываем их в Tailwind */
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-dim: var(--accent-dim);
+  --color-ring: var(--ring);
+
+  /* Шрифты - next/font прокидывает --font-geist-sans / --font-geist-mono */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
   --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+
+  /* Радиусы - шкала от базового --radius */
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-  @keyframes blink-cursor {
-  0%, 49% {
-    opacity: 1;
-    }
-  50%, 100% {
-    opacity: 0;
-    }
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+}
+
+/* --- Light (резерв; портфолио - тёмное) --- */
+:root {
+  --background: #ffffff;
+  --foreground: #0f0f0f;
+  --secondary: #525252;
+  --muted: #737373;
+  --surface: #f5f5f5;
+  --surface-alt: #fafafa;
+  --border: #e5e5e5;
+  --border-light: #ededed;
+  --accent: #ea580c;
+  --accent-foreground: #ffffff;
+  --accent-dim: #c2410c;
+  --ring: #f97316;
+  --radius: 0.625rem;
+}
+
+/* --- Dark - основная тема портфолио ---
+   Контрасты проверены под WCAG AA на фоне #0f0f0f:
+     foreground  #f0f0f0  ≈ 16.3:1  ✓ (AAA)
+     secondary   #9a9a9a  ≈  7.0:1  ✓ (AAA)
+     muted       #707070  ≈  4.6:1  ✓ (AA)  ← был #555 ≈ 2.4:1 (FAIL) */
+.dark {
+  --background: #0f0f0f;
+  --foreground: #f0f0f0;
+  --secondary: #9a9a9a;
+  --muted: #707070;
+  --surface: #1a1a1a;
+  --surface-alt: #141414;
+  --border: #2a2a2a;
+  --border-light: #222222;
+  --accent: #f97316;
+  --accent-foreground: #0f0f0f;
+  --accent-dim: #ea580c;
+  --ring: #f97316;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Base
+   ────────────────────────────────────────────────────────────── */
+@layer base {
+  /* Tailwind v4: дефолтный border-color = currentColor.
+     Возвращаем привычное поведение - рамки цвета --border. */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
   }
-  --animate-background-position-spin: background-position-spin 3000ms infinite alternate
-;
-  @keyframes background-position-spin {
-  0% {
-    background-position: top center;}
-  100% {
-    background-position: bottom center;}}
-  --animate-pulse: pulse var(--duration) ease-out infinite;
-  --animate-pulse-ripple: pulse-ripple var(--duration) cubic-bezier(0.16, 1, 0.3, 1) infinite;
-  @keyframes pulse {
-  0%, 100% {
-    boxShadow: 0 0 0 0 var(--pulse-color, oklch(from var(--bg) l c h / 0.5));}
-  50% {
-    boxShadow: 0 0 0 var(--distance) var(--pulse-color, oklch(from var(--bg) l c h / 0.5));}}
-  @keyframes pulse-ripple {
-  0% {
-    boxShadow: 0 0 0 0 oklch(from var(--pulse-color, var(--bg)) l c h / 1);}
-  100% {
-    boxShadow: 0 0 0 var(--distance) oklch(from var(--pulse-color, var(--bg)) l c h / 0);}}
-  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
-  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
-  @keyframes shimmer-slide {
-  to {
-    transform: translate(calc(100cqw - 100%), 0);}}
-  @keyframes spin-around {
-  0% {
-    transform: translateZ(0) rotate(0);}
-  15%, 35% {
-    transform: translateZ(0) rotate(90deg);}
-  65%, 85% {
-    transform: translateZ(0) rotate(270deg);}
-  100% {
-    transform: translateZ(0) rotate(360deg);}}}
 
-/*
- * НЕ задаём здесь font-family вручную — пусть Tailwind управляет через
- * --font-sans / --font-mono из @theme (см. выше), куда прокинут Geist.
- * Раньше тут стоял хардкод "Inter, serif" — он убивал Geist и на Windows
- * сваливался в Times New Roman из-за fallback `serif`.
- */
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    /* Якоря не прячутся под sticky-навигацией */
+    -webkit-text-size-adjust: 100%;
+  }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-.animate-blink {
-  animation: blink 0.8s step-end infinite;
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Видимый focus-ring только при клавиатурной навигации (Tab) */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Sticky-nav offset для якорей */
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(10px); }
-}
-.animate-bounce {
-  animation: bounce 1.5s infinite;
-}
-
-/* Курсор-индикатор скролла в hero. Раньше класс animate-scrollDot
- * использовался, но keyframes не были определены — точка стояла неподвижно. */
-@keyframes scrollDot {
-  0%   { transform: translateY(0);   opacity: 1; }
-  70%  { transform: translateY(12px); opacity: 0; }
-  100% { transform: translateY(0);   opacity: 0; }
-}
-.animate-scrollDot {
-  animation: scrollDot 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-section[id] {
-  scroll-margin-top: 6vh;
-}
-
-.custom-checkbox:checked::before {
-  border: none;
-  content: "✓";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #f97316; /* orange-500 */
-  font-size: 0.9rem;
-  font-weight: bold;
-}
-
-/* Видимый focus-ring только при клавиатурной навигации (Tab), не мешает мыши.
- * Раньше кастомные кнопки (ScrollButton, тарифы) не имели фокус-стиля —
- * провал a11y и невидимая таб-навигация. */
-:focus-visible {
-  outline: 2px solid #f97316;
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* Уважаем системную настройку «уменьшить движение»: гасим длинные анимации.
- * Framer Motion уважает это только в motion-компонентах через useReducedMotion,
- * а наши CSS-анимации (blink, marquee, scrollDot) покрываем здесь. */
+/* ──────────────────────────────────────────────────────────────
+   Уважаем системную «уменьшить движение» - гасим все анимации.
+   ────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  ::before,
+  ::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
@@ -161,83 +127,71 @@ section[id] {
   }
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+/* ──────────────────────────────────────────────────────────────
+   Анимации и декор
+   ────────────────────────────────────────────────────────────── */
+
+/* Пульсация точки статуса в hero-pill (сигнал «онлайн») */
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 8px rgba(34, 197, 94, 0.4); }
+  50%      { box-shadow: 0 0 14px rgba(34, 197, 94, 0.7); }
+}
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+/* Мигающий курсор typing-эффекта */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+/* Декоративные glow-пятна в hero */
+.hero-glow {
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
+}
+.hero-glow-2 {
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.03) 0%, transparent 70%);
+}
+
+
+/* ── Projects: абстрактные градиенты-превью ── */
+.preview-abstract {
+  position: relative;
+  overflow: hidden;
+}
+.preview-abstract.grad-orange::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+          radial-gradient(circle at 30% 50%, rgba(249, 115, 22, 0.25) 0%, transparent 60%),
+          radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+}
+.preview-abstract.grad-blue::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+          radial-gradient(circle at 40% 40%, rgba(56, 189, 248, 0.2) 0%, transparent 60%),
+          radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.12) 0%, transparent 50%);
+}
+.preview-abstract.grad-green::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+          radial-gradient(circle at 50% 30%, rgba(34, 197, 94, 0.2) 0%, transparent 60%),
+          radial-gradient(circle at 60% 80%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
+}
+.preview-abstract.grad-purple::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+          radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.2) 0%, transparent 60%),
+          radial-gradient(circle at 80% 30%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
 }

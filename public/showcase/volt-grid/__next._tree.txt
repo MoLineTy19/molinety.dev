@@ -1,4 +1,0 @@
-:HL["/showcase/volt-grid/_next/static/chunks/1yzo5gddruz9w.css","style"]
-:HL["/showcase/volt-grid/_next/static/media/37d0015dc75cbc8f-s.p.3bwe9v1pldx1s.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/showcase/volt-grid/_next/static/media/d8bd0e9af077c7ac-s.p.2gt28utfl-tis.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"HMuIDjBiWW13EILXqiBLX"}
