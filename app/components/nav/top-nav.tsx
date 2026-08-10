@@ -2,6 +2,7 @@
 
 import {useEffect, useState} from "react";
 import Link from "next/link";
+import { ThemeToggle } from "@/app/components/theme/theme-toggle";
 
 const NAV_ITEMS = [
     { href: "#about", label: "Обо мне"},
@@ -53,6 +54,7 @@ export function TopNav() {
                 </Link>
 
                 {/* Desktop */}
+                <div className="flex items-center gap-2">
                 <ul className={"hidden items-center gap-8 md:flex"}>
                     {NAV_ITEMS.map((item) => (
                         <li key={item.href}>
@@ -63,6 +65,8 @@ export function TopNav() {
                     ))}
                 </ul>
 
+                <ThemeToggle />
+                </div>
                 {/* Hamburger — mobile only */}
                 <button
                     type="button"

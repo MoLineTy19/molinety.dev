@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import {SpeedInsights} from "@vercel/speed-insights/next";
 import "./globals.css";
+import { ThemeProvider } from "@/app/components/theme/theme-provider";
 import {jsonLdScripts} from "@/app/lib/jsonld";
 
 const geistSans = Geist({
@@ -48,16 +49,18 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="ru" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}>
+        <html lang="ru" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
             <body className="min-h-full flex flex-col">
-                {jsonLdScripts.map((schema) => (
-                    <script
-                        key={schema["@id"]}
-                        type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-                    />
-                ))}
-                {children}
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+                    {jsonLdScripts.map((schema) => (
+                        <script
+                            key={schema["@id"]}
+                            type="application/ld+json"
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+                        />
+                    ))}
+                    {children}
+                </ThemeProvider>
                 <SpeedInsights/>
             </body>
         </html>
