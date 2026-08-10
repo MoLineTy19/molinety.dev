@@ -33,15 +33,20 @@ export function ParticleField() {
 
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-        function resize() {
-            if (!canvas) return;
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
-            ctx!.setTransform(1, 0, 0, 1, 0, 0);
-            ctx!.scale(dpr, dpr);
-            initParticles(rect.width, rect.height);
-        }
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+
+    function resize() {
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx!.setTransform(1, 0, 0, 1, 0, 0);
+        ctx!.scale(dpr, dpr);
+        // Частицы создаём только при первом рендере. На ресайзе не пересоздаём:
+        // на мобиле при скролле адресная строка прячется/появляется, dvh меняется,
+        // resize стреляет постоянно - регенерация всех частиц выглядит как «разбег».
+        if (particles.length === 0) initParticles(rect.width, rect.height);
+    }
 
         function initParticles(w: number, h: number) {
             particles = Array.from({ length: COUNT }, () => ({
@@ -115,7 +120,10 @@ export function ParticleField() {
         );
         io.observe(canvas);
 
-        const onResize = () => resize();
+        const onResize = () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(resize, 150);
+        };
         const onMouse = (e: MouseEvent) => {
             const rect = canvas!.getBoundingClientRect();
             mouse.x = e.clientX - rect.left;
@@ -128,6 +136,7 @@ export function ParticleField() {
         return () => {
             cancelAnimationFrame(rafId);
             io.disconnect();
+            clearTimeout(resizeTimer);
             window.removeEventListener("resize", onResize);
             window.removeEventListener("mousemove", onMouse);
         };
