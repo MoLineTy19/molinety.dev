@@ -62,7 +62,7 @@ export default function Typing({words, typingSpeed = 70, deletingSpeed = 35, pau
     return (
         <span aria-hidden={false}>
             {text}
-            {!reduced && <span className={"animate-blink ml-0.5 inline-"}/>}
+            {!reduced && <span className={"animate-blink ml-0.5 inline-block"}/>}
         </span>
     )
 }

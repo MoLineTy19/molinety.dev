@@ -7,7 +7,7 @@ const NAV_ITEMS = [
     { href: "#about", label: "Обо мне"},
     { href: "#skills", label: "Стек"},
     { href: "#projects", label: "Проекты"},
-    { href: "#contats", label: "Контакты"}
+    { href: "#contact", label: "Контакты"}
 ]
 
 export function TopNav() {

@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import type {Metadata} from "next";
+import {Geist, Geist_Mono} from "next/font/google";
+import {SpeedInsights} from "@vercel/speed-insights/next";
 import "./globals.css";
+import {jsonLdScripts} from "@/app/lib/jsonld";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -14,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://molinety.ru"),
     title: {
         default: "MoLineTy · Fullstack Developer",
         template: "%s · MoLineTy",
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
     description:
         "Fullstack-разработчик. Бэкенд на Python и Go, фронтенд на React/Next.js. 4 года в коммерческой разработке. Проекты на GitHub.",
     keywords: ["fullstack", "backend", "frontend", "разработчик", "Python", "Go", "React", "Next.js", "портфолио"],
-    authors: [{ name: "MoLineTy" }],
+    authors: [{name: "MoLineTy"}],
     creator: "MoLineTy",
     openGraph: {
         title: "MoLineTy · Fullstack Developer",
@@ -34,6 +36,10 @@ export const metadata: Metadata = {
         title: "MoLineTy · Fullstack Developer",
         description: "Бэкенд на Python и Go, фронтенд на React/Next.js.",
     },
+    robots: {
+        index: true,
+        follow: true,
+    },
 };
 
 export default function RootLayout({
@@ -43,10 +49,17 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}>
-        <body className="min-h-full flex flex-col">
-        {children}
-        <SpeedInsights />
-        </body>
+            <body className="min-h-full flex flex-col">
+                {jsonLdScripts.map((schema) => (
+                    <script
+                        key={schema["@id"]}
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+                    />
+                ))}
+                {children}
+                <SpeedInsights/>
+            </body>
         </html>
     );
 }
