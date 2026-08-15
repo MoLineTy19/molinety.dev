@@ -2,18 +2,20 @@
 
 import {useEffect, useState} from "react";
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 import { ThemeToggle } from "@/app/components/theme/theme-toggle";
 
 const NAV_ITEMS = [
-    { href: "#about", label: "Обо мне"},
-    { href: "#skills", label: "Стек"},
-    { href: "#projects", label: "Проекты"},
-    { href: "#contact", label: "Контакты"}
+    { href: "/#about", label: "Обо мне"},
+    { href: "/#skills", label: "Стек"},
+    { href: "/works", label: "Работы"},
+    { href: "/#contact", label: "Контакты"}
 ]
 
 export function TopNav() {
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const pathname = usePathname();
 
     // Тень/бордер при скролле
     useEffect(() => {
@@ -49,25 +51,33 @@ export function TopNav() {
                         : "border-b border-transparent bg-background/70"
                 }`}
             >
-                <Link href={"#home"} className={"font-heading text-xl font-bold tracking-tight"}>
+                <Link href={"/"} className={"font-heading text-xl font-bold tracking-tight"}>
                     Mo<span className={"text-accent"}>Line</span>Ty
                 </Link>
 
                 {/* Desktop */}
                 <div className="flex items-center gap-2">
                 <ul className={"hidden items-center gap-8 md:flex"}>
-                    {NAV_ITEMS.map((item) => (
-                        <li key={item.href}>
-                            <Link href={item.href} className={"relative text-sm font-medium text-secondary transition-colors hover:text-foreground after:absolute after:-bottom-1.5 after:left-0 after:right-0 after:h-[1.5px] after:origin-right after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100"}>
-                                {item.label}
-                            </Link>
-                        </li>
-                    ))}
+                    {NAV_ITEMS.map((item) => {
+                        // Активность имеет смысл только для страниц, не для якорей
+                        const active = !item.href.startsWith("/#") && pathname === item.href;
+                        return (
+                            <li key={item.href}>
+                                <Link href={item.href} className={`relative text-sm font-medium transition-colors after:absolute after:-bottom-1.5 after:left-0 after:right-0 after:h-[1.5px] after:origin-right after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 ${
+                                    active
+                                        ? "text-foreground after:origin-left after:scale-x-100"
+                                        : "text-secondary hover:text-foreground hover:after:origin-left hover:after:scale-x-100"
+                                }`}>
+                                    {item.label}
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </ul>
 
                 <ThemeToggle />
                 </div>
-                {/* Hamburger — mobile only */}
+                {/* Hamburger: mobile only */}
                 <button
                     type="button"
                     onClick={() => setOpen((o) => !o)}
@@ -92,17 +102,22 @@ export function TopNav() {
                 }`}
             >
                 <ul className="flex flex-col px-6 py-4">
-                    {NAV_ITEMS.map((item) => (
-                        <li key={item.href}>
-                            <Link
-                                href={item.href}
-                                onClick={() => setOpen(false)}
-                                className="block border-b border-border-light py-4 font-heading text-2xl font-semibold text-secondary transition-colors hover:text-accent"
-                            >
-                                {item.label}
-                            </Link>
-                        </li>
-                    ))}
+                    {NAV_ITEMS.map((item) => {
+                        const active = !item.href.startsWith("/#") && pathname === item.href;
+                        return (
+                            <li key={item.href}>
+                                <Link
+                                    href={item.href}
+                                    onClick={() => setOpen(false)}
+                                    className={`block border-b border-border-light py-4 font-heading text-2xl font-semibold transition-colors hover:text-accent ${
+                                        active ? "text-accent" : "text-secondary"
+                                    }`}
+                                >
+                                    {item.label}
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </>

@@ -24,16 +24,9 @@ export function ProjectCard({ project }: { project: Project }) {
             </div>
 
             <div className="flex flex-1 flex-col gap-3.5 p-7">
-                <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="font-heading text-lg font-semibold tracking-tight text-foreground">
-                        {project.title}
-                    </h3>
-                    {project.year && (
-                        <span className="font-mono text-xs tracking-wider text-muted">
-                            {project.year}
-                        </span>
-                    )}
-                </div>
+                <h3 className="font-heading text-lg font-semibold tracking-tight text-foreground">
+                    {project.title}
+                </h3>
 
                 <p className="text-sm leading-relaxed text-secondary">
                     {project.description}

@@ -1,3 +1,5 @@
+import Link from "next/link";
+import {ArrowUpRight} from "lucide-react";
 import {AnimatedSection} from "@/app/components/animated-section";
 import {SectionHeader} from "@/app/components/about/section-header";
 import {projects} from "@/app/components/projects/projects-data";
@@ -17,6 +19,18 @@ export function Projects() {
                     </AnimatedSection>
                 ))}
             </div>
+
+            <AnimatedSection delay={0.1}>
+                <div className="mt-10 flex justify-center">
+                    <Link
+                        href="/works"
+                        className="inline-flex items-center gap-2 rounded-lg border border-border px-7 py-3.5 text-sm font-semibold text-secondary transition-colors hover:border-accent/50 hover:text-accent active:translate-y-px"
+                    >
+                        Все работы
+                        <ArrowUpRight size={16} />
+                    </Link>
+                </div>
+            </AnimatedSection>
         </section>
     )
 }
