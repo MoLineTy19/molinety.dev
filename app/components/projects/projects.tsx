@@ -13,7 +13,7 @@ export function Projects() {
             </AnimatedSection>
 
             <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {projects.map((project, i) => (
+                {projects.splice(0, 4).map((project, i) => (
                     <AnimatedSection key={project.slug} delay={i * 0.08}>
                         <ProjectCard project={project}></ProjectCard>
                     </AnimatedSection>
