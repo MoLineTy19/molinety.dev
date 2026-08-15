@@ -1,3 +1,15 @@
+/** Тип проекта для каталога /works */
+export type ProjectCategory = "backend" | "desktop" | "automation" | "frontend" | "fullstack";
+
+/** Человекочитаемые названия категорий (фильтры каталога, бейдж карточки) */
+export const categoryLabels: Record<ProjectCategory, string> = {
+    backend: "Бэкенд",
+    desktop: "Десктоп",
+    automation: "Автоматизация",
+    frontend: "Фронтенд",
+    fullstack: "Фулстек",
+};
+
 export type Project = {
     slug: string;
     num: string;
@@ -5,13 +17,14 @@ export type Project = {
     description: string;
     highlights: string[];
     stack: string[];
+    /** тип проекта для фильтра на странице /works */
+    category: ProjectCategory;
     /** цвет абстрактного градиента-превью */
     gradient: "orange" | "blue" | "green" | "purple";
     /** ссылка на исходники (опционально) */
     codeUrl?: string;
-    /** ссылка на живой сайт (опционально) */
+    /** ссылка на живой сайт или демо (опционально) */
     liveUrl?: string;
-    year?: number;
 };
 
 /**
@@ -31,9 +44,9 @@ export const projects: Project[] = [
             "Docker multi-stage, hot-reload сессии без рестарта",
         ],
         stack: ["Go", "net/http", "Docker", "REST API"],
+        category: "backend",
         gradient: "orange",
         codeUrl: "https://github.com/MoLineTy19/FunPay-Core",
-        year: 2025,
     },
     {
         slug: "boosty-dumper",
@@ -48,9 +61,9 @@ export const projects: Project[] = [
             "Пропуск уже скачанных файлов, пагинация",
         ],
         stack: ["Python", "PySide6", "PyInstaller", "ThreadPoolExecutor"],
+        category: "desktop",
         gradient: "green",
         codeUrl: "https://github.com/MoLineTy19/Boosty-Dumper",
-        year: 2025,
     },
     {
         slug: "ytstats",
@@ -65,9 +78,9 @@ export const projects: Project[] = [
             "Repository/Factory паттерны, mypy + ruff",
         ],
         stack: ["Python", "googleapiclient", "gspread", "mypy"],
+        category: "automation",
         gradient: "blue",
         codeUrl: "https://github.com/MoLineTy19/Youtube-Stats-to-GS",
-        year: 2025,
     },
     {
         slug: "portfolio",
@@ -82,8 +95,43 @@ export const projects: Project[] = [
             "Доступность: focus-visible, reduced-motion",
         ],
         stack: ["Next.js", "TypeScript", "Tailwind", "motion"],
+        category: "frontend",
         gradient: "purple",
         codeUrl: "https://github.com/MoLineTy19",
-        year: 2025,
+    },
+    {
+        slug: "moly",
+        num: "05",
+        title: "Moly",
+        description:
+            "Локальный менеджер паролей с шифрованием на стороне клиента: мастер-пароль не покидает браузер, сервер хранит только шифртекст. Next.js, сборка в Electron.",
+        highlights: [
+            "AES-256-GCM, ключ выводится из мастер-пароля через PBKDF2",
+            "Теги с drag-and-drop, избранное, поиск с подсветкой",
+            "Генератор паролей, импорт/экспорт JSON и CSV",
+            "Автоблокировка по таймеру и при уходе со вкладки",
+        ],
+        stack: ["Next.js", "TypeScript", "Zustand", "Electron"],
+        category: "desktop",
+        gradient: "blue",
+        codeUrl: "https://github.com/MoLineTy19/moly",
+    },
+    {
+        slug: "noir-store",
+        num: "06",
+        title: "NOIR Store",
+        description:
+            "Демо-магазин мерча в Telegram Mini App: каталог, корзина, оформление и статусы заказов. Бэкенд на FastAPI валидирует заказы, уведомления уходят админу и клиенту через бота.",
+        highlights: [
+            "Состав и сумма заказа пересчитываются на сервере",
+            "Подпись initData проверяется через HMAC-SHA256",
+            "Уведомления админу и клиенту через бота на aiogram",
+            "Нативные MainButton, BackButton и haptic-фидбек",
+        ],
+        stack: ["FastAPI", "aiogram", "React", "TypeScript"],
+        category: "fullstack",
+        gradient: "purple",
+        codeUrl: "https://github.com/MoLineTy19/NOIR-Store",
+        liveUrl: "https://t.me/noir_store_demo_bot",
     },
 ];

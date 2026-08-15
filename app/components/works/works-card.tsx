@@ -1,10 +1,11 @@
 import { ExternalLink } from "lucide-react";
 import { GithubIcon } from "@/app/components/icons/github-icon";
-import { type Project } from "./projects-data";
+import { categoryLabels, type Project } from "@/app/components/projects/projects-data";
 
 /**
- * Карточка проекта.
- * Превью: абстрактный градиент с номером.
+ * Карточка работы для каталога /works.
+ * Отличается от ProjectCard на главной: превью выше, бейдж категории,
+ * список фич убран, чтобы каталог просматривался быстрее.
  */
 const gradientClasses: Record<Project["gradient"], string> = {
     orange: "grad-orange",
@@ -13,35 +14,27 @@ const gradientClasses: Record<Project["gradient"], string> = {
     purple: "grad-purple",
 };
 
-export function ProjectCard({ project }: { project: Project }) {
+export function WorksCard({ project }: { project: Project }) {
     return (
         <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light bg-surface-alt transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-[0_12px_40px_rgba(249,115,22,0.06),0_0_0_1px_rgba(249,115,22,0.08)]">
             <div className="absolute inset-x-0 top-0 h-0.75 bg-linear-to-r from-accent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className={`preview-abstract flex min-h-30 items-center justify-center border-b border-border-light ${gradientClasses[project.gradient]}`}>
+            <div className={`preview-abstract relative flex h-44 items-center justify-center border-b border-border-light ${gradientClasses[project.gradient]}`}>
+                <span className="absolute left-4 top-4 rounded bg-background/60 px-2.5 py-1 font-mono text-xs tracking-wider text-secondary backdrop-blur-sm">
+                    {categoryLabels[project.category].toLowerCase()}
+                </span>
                 <span className="project-icon relative z-10 grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/5">
                     <span className="font-mono text-sm text-accent">{project.num}</span>
                 </span>
             </div>
 
             <div className="flex flex-1 flex-col gap-3.5 p-7">
-                <h3 className="font-heading text-lg font-semibold tracking-tight text-foreground">
+                <h2 className="font-heading text-lg font-semibold tracking-tight text-foreground">
                     {project.title}
-                </h3>
+                </h2>
 
                 <p className="text-sm leading-relaxed text-secondary">
                     {project.description}
                 </p>
-
-                {project.highlights.length > 0 && (
-                    <ul className="flex flex-col gap-1.5">
-                        {project.highlights.map((h) => (
-                            <li key={h} className="flex items-start gap-2 text-xs text-muted">
-                                <span className="mt-1 inline-block h-1 w-1 shrink-0 rounded-full bg-accent/60" />
-                                {h}
-                            </li>
-                        ))}
-                    </ul>
-                )}
 
                 <div className="flex flex-wrap gap-1.5">
                     {project.stack.map((tech) => (
