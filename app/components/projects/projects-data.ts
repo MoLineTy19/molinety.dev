@@ -134,4 +134,21 @@ export const projects: Project[] = [
         codeUrl: "https://github.com/MoLineTy19/NOIR-Store",
         liveUrl: "https://t.me/noir_store_demo_bot",
     },
+    {
+        slug: "nurafast",
+        num: "07",
+        title: "NuraFast",
+        description:
+            "Telegram-бот, который разбирает бланки анализов из PDF, объясняет результаты обычным языком и ведёт план здоровья: питание, БАДы, сон. Раз в неделю сам спрашивает самочувствие и показывает динамику.",
+        highlights: [
+            "Разбор PDF-бланков (Инвитро) через pdfplumber",
+            "LLM-слой: смена провайдера одной переменной в .env",
+            "FastAPI-админка: пользователи, подписки, конверсия",
+            "Оплата через webhook с проверкой HMAC-SHA256",
+        ],
+        stack: ["Python", "aiogram", "FastAPI", "PostgreSQL"],
+        category: "fullstack",
+        gradient: "green",
+        liveUrl: "https://t.me/nurafast_bot",
+    },
 ];
