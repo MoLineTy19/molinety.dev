@@ -147,8 +147,25 @@ export const projects: Project[] = [
             "Оплата через webhook с проверкой HMAC-SHA256",
         ],
         stack: ["Python", "aiogram", "FastAPI", "PostgreSQL"],
-        category: "fullstack",
+        category: "backend",
         gradient: "green",
         liveUrl: "https://t.me/nurafast_bot",
+    },
+    {
+        slug: "catrin-am-bot",
+        num: "08",
+        title: "Catrin.am Bot",
+        description:
+            "Telegram-бот магазина инфопродуктов: покупатель оплачивает гайд картой через платёжный шлюз ВТБ, бот проверяет оплату и выдаёт файл. Рассылки и цена настраиваются из админ-панели в самом боте, кода это не касается.",
+        highlights: [
+            "Приём карт через шлюз ВТБ (МультиКарта, RBS REST)",
+            "Фоновая проверка оплат сутки на случай, если банк не вернул покупателя в бота",
+            "Гайд привязан к аккаунту, чужая ссылка не сработает",
+            "Рассылка по трём аудиториям с отчётом о доставке",
+        ],
+        stack: ["Python", "aiogram 3", "aiosqlite", "httpx"],
+        category: "backend",
+        gradient: "orange",
+        codeUrl: "https://t.me/Catrin_am_bot",
     },
 ];
