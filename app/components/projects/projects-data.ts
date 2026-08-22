@@ -166,6 +166,6 @@ export const projects: Project[] = [
         stack: ["Python", "aiogram 3", "aiosqlite", "httpx"],
         category: "backend",
         gradient: "orange",
-        codeUrl: "https://t.me/Catrin_am_bot",
+        liveUrl: "https://t.me/Catrin_am_bot",
     },
 ];
